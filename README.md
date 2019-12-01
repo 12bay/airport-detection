@@ -1,28 +1,20 @@
-# Adonis API application
+# Airport Service Application
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+> Just return the current Airport information
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
-
-## Setup
+## Development
 
 Use the adonis command to install the blueprint
 
 ```bash
-adonis new yardstick --api-only
+$ yarn install
+$ adonis serve --dev
 ```
 
-or manually clone the repo and then run `npm install`.
+## Tech stack
 
+- [Adonis Framework](https://adonisjs.com)
 
-### Migrations
+## License
 
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+MIT © [Nghiep](https://nghiepit.dev)
