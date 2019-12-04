@@ -1,7 +1,7 @@
 const got = require('got');
 const tryEach = require('async/tryEach');
 const shuffle = require('lodash.shuffle');
-const {compose, map, split, replace, zipObj} = require('ramda');
+const {compose, map, split, replace, zipObj, trim} = require('ramda');
 
 const Env = use('Env');
 
@@ -24,7 +24,7 @@ class CityDetector {
   async handle({request}, next) {
     const {realIp} = request;
 
-    request.city = await tryEach(
+    const city = await tryEach(
       shuffle(providers).map(({url, field}) => callback => {
         url = cleanProviderUrl(url, realIp ? realIp : '');
 
@@ -50,6 +50,8 @@ class CityDetector {
           });
       }),
     );
+
+    request.city = compose(trim, replace(/city$/i, ''))(city);
 
     await next();
   }

@@ -16,6 +16,8 @@ const Route = use('Route');
 
 Route.get('/', 'AirportController.index').middleware(['city']);
 
-Route.get('/city', ({request, response}) => {
-  response.send({city: request.city});
+Route.get('/geo', ({request, response}) => {
+  const {realIp: ip, city} = request;
+
+  response.send({ip, ips: request.ips(), city});
 }).middleware(['city']);

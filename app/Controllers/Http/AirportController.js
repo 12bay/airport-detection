@@ -6,6 +6,7 @@ const AirportException = use('App/Exceptions/AirportException');
 const airports = Object.values(use('App/airports.json'));
 
 const airportSearchEngine = new FlexSearch({
+  encode: 'simple',
   doc: {
     id: 'iata',
     field: ['city', 'name'],
@@ -23,7 +24,7 @@ class AirportController {
 
     const results = airportSearchEngine.search(city);
 
-    if (!results) {
+    if (!results || !results.length) {
       throw new AirportException();
     }
 
