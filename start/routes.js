@@ -1,5 +1,3 @@
-const CityException = use('App/Exceptions/CityException');
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -16,10 +14,8 @@ const CityException = use('App/Exceptions/CityException');
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', ({request: {city}}) => {
-  if (!city) {
-    throw new CityException();
-  }
+Route.get('/', 'AirportController.index').middleware(['city']);
 
-  return {city};
+Route.get('/city', ({request, response}) => {
+  response.send({city: request.city});
 }).middleware(['city']);

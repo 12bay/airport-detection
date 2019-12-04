@@ -1,5 +1,3 @@
-'use strict';
-
 const {LogicalException} = require('@adonisjs/generic-exceptions');
 
 class CityException extends LogicalException {

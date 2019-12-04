@@ -35,7 +35,9 @@ class CityDetector {
           })
           .catch(err => {
             const error = new Error(err.message);
+
             error.status = err.response ? err.response.statusCode : 500;
+
             callback(error);
           });
       }),
