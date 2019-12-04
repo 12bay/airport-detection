@@ -1,3 +1,5 @@
+const CityException = use('App/Exceptions/CityException');
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -14,6 +16,10 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', () => {
-  return {greeting: 'Hello world in JSON'};
-});
+Route.get('/', ({request: {city}}) => {
+  if (!city) {
+    throw new CityException();
+  }
+
+  return {city};
+}).middleware(['city']);
