@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Copy .env environment
+        run: cp .env.example .env
+
+      - name: Build and publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          PORT: 3333
+          APP_KEY: ${{secrets.APP_KEY}}
+          APP_DETECT_PROVIDER: ${{secrets.APP_DETECT_PROVIDER}}
+        with:
+          name: 12bay/airport-detection/airport-detection
+          registry: docker.pkg.github.com
+          username: nghiepit
+          password: ${{secrets.GITHUB_TOKEN}}
+          tag_names: true
+          buildargs: PORT,APP_KEY,APP_DETECT_PROVIDER
