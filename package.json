@@ -1,6 +1,6 @@
 {
   "name": "airport-detection",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "adonis-version": "4.1.0",
   "description": "Just return the current Airport information",
   "main": "index.js",
