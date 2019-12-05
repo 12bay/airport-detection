@@ -25,7 +25,7 @@ class CityDetector {
     const {realIp} = request;
 
     const city = await tryEach(
-      shuffle(providers).map(({url, field}) => callback => {
+      shuffle(providers).map(({url, field = 'city'}) => callback => {
         url = cleanProviderUrl(url, realIp ? realIp : '');
 
         return got(url, {

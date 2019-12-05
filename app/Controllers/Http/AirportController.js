@@ -1,18 +1,9 @@
-const FlexSearch = require('flexsearch');
+const {isEmpty} = require('ramda');
+
+const Airport = use('Airport');
 
 const CityException = use('App/Exceptions/CityException');
 const AirportException = use('App/Exceptions/AirportException');
-
-const airports = Object.values(use('App/airports.json'));
-
-const airportSearchEngine = new FlexSearch({
-  encode: 'simple',
-  doc: {
-    id: 'iata',
-    field: ['city', 'name'],
-    cache: true,
-  },
-}).add(airports);
 
 class AirportController {
   index({request, response}) {
@@ -22,9 +13,9 @@ class AirportController {
       throw new CityException();
     }
 
-    const results = airportSearchEngine.search(city);
+    const results = Airport.search(city);
 
-    if (!results || !results.length) {
+    if (isEmpty(results)) {
       throw new AirportException();
     }
 
