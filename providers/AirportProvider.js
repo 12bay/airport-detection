@@ -16,7 +16,7 @@ const searchEngine = new FlexSearch({
 class AirportProvider extends ServiceProvider {
   register() {
     this.app.singleton('Airport', () => {
-      return new (require('../src/Airport'))(searchEngine);
+      return new (require('../src/Airport'))(searchEngine, airports);
     });
   }
 }

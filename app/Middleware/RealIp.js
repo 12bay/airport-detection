@@ -7,7 +7,8 @@ class RealIp {
       if (
         !contains(':', ip) &&
         !startsWith('127.0.0.', ip) &&
-        !startsWith('192.168.', ip)
+        !startsWith('192.168.', ip) &&
+        !startsWith('172.', ip)
       ) {
         return true;
       }

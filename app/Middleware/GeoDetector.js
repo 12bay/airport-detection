@@ -1,7 +1,7 @@
 const got = require('got');
 const tryEach = require('async/tryEach');
 const shuffle = require('lodash.shuffle');
-const {compose, map, split, replace, zipObj, trim} = require('ramda');
+const {compose, split, replace, trim} = require('ramda');
 
 const Env = use('Env');
 
@@ -15,17 +15,39 @@ const cleanProviderUrl = (url, ip) => {
   return url;
 };
 
-const providers = compose(
-  map(compose(zipObj(['url', 'field']), split('\\'))),
-  split('|'),
-)(Env.get('APP_DETECT_PROVIDER'));
+const geoTransformer = geo => {
+  const {
+    ip,
+    query,
+    city,
+    latitude,
+    lat,
+    longitude,
+    lon,
+    loc = '',
+    country,
+    country_name,
+  } = geo;
 
-class CityDetector {
+  const [la, lo] = split(',', loc);
+
+  return {
+    ip: ip || query,
+    latitude: +(latitude || lat || la),
+    longitude: +(longitude || lon || lo),
+    city: city && compose(trim, replace(/city$/i, ''))(city),
+    country: country || country_name,
+  };
+};
+
+const providers = split('|')(Env.get('APP_DETECT_PROVIDER'));
+
+class GeoDetector {
   async handle({request}, next) {
     const {realIp} = request;
 
-    const city = await tryEach(
-      shuffle(providers).map(({url, field = 'city'}) => callback => {
+    request.geo = await tryEach(
+      shuffle(providers).map(url => callback => {
         url = cleanProviderUrl(url, realIp ? realIp : '');
 
         return got(url, {
@@ -33,13 +55,13 @@ class CityDetector {
           retry: 0,
         })
           .then(response => {
-            const city = response.body[field];
+            const geo = geoTransformer(response.body);
 
-            if (!city) {
+            if (!geo.city) {
               throw new Error('Not found');
             }
 
-            callback(null, city);
+            callback(null, geo);
           })
           .catch(err => {
             const error = new Error(err.message);
@@ -51,10 +73,8 @@ class CityDetector {
       }),
     );
 
-    request.city = compose(trim, replace(/city$/i, ''))(city);
-
     await next();
   }
 }
 
-module.exports = CityDetector;
+module.exports = GeoDetector;

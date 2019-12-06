@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:12.11.1-alpine
 
 LABEL maintainer="Nghiep <me@nghiepit.dev>"
 

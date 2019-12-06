@@ -1,4 +1,5 @@
-const {isEmpty} = require('ramda');
+const {findNearest} = require('geolib');
+const {pick, find, useWith, equals} = require('ramda');
 
 const Airport = use('Airport');
 
@@ -7,19 +8,55 @@ const AirportException = use('App/Exceptions/AirportException');
 
 class AirportController {
   index({request, response}) {
-    const {city} = request;
+    const {city, latitude, longitude} = request.geo;
 
     if (!city) {
       throw new CityException();
     }
 
-    const results = Airport.search(city);
+    const airports = Airport.search(city);
 
-    if (isEmpty(results)) {
+    const airportLoc = findNearest(
+      {
+        latitude,
+        longitude,
+      },
+      airports.map(pick(['latitude', 'longitude'])),
+    );
+
+    if (!airportLoc) {
       throw new AirportException();
     }
 
-    response.send(results[0]);
+    const airport = find(
+      useWith(equals, [
+        pick(['latitude', 'longitude']),
+        pick(['latitude', 'longitude']),
+      ])(airportLoc),
+    )(airports);
+
+    response.send(airport);
+  }
+
+  getAirportByCoordinate({params, response}) {
+    const {latitude, longitude} = params;
+
+    const airportLoc = findNearest(
+      {
+        latitude,
+        longitude,
+      },
+      Airport.rawCoordinates(),
+    );
+
+    const airport = find(
+      useWith(equals, [
+        pick(['latitude', 'longitude']),
+        pick(['latitude', 'longitude']),
+      ])(airportLoc),
+    )(Airport.raw());
+
+    response.send(airport);
   }
 }
 
