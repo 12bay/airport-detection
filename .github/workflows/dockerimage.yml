@@ -24,9 +24,8 @@ jobs:
           APP_KEY: ${{secrets.APP_KEY}}
           APP_DETECT_PROVIDER: ${{secrets.APP_DETECT_PROVIDER}}
         with:
-          name: 12bay/airport-detection/airport-detection
-          registry: docker.pkg.github.com
-          username: nghiepit
-          password: ${{secrets.GITHUB_TOKEN}}
+          name: 12bayvn/airport-detection
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           tag_names: true
           buildargs: PORT,APP_KEY,APP_DETECT_PROVIDER

@@ -27,7 +27,7 @@ $ yarn start
 ### Docker deploy
 
 ```bash
-$ docker run --restart=unless-stopped -p 3333:3333 -d docker.pkg.github.com/12bay/airport-detection/airport-detection
+$ docker run --restart=unless-stopped -p 3333:3333 -d 12bayvn/airport-detection
 ```
 
 ## Usage
