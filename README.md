@@ -54,7 +54,29 @@ $ curl https://ap.12bay.dev
 }
 ```
 
-### Manually with your coordinate (Recommended way)
+### Manually specifying the IP Address
+
+```bash
+$ curl https://ap.12bay.dev/27.67.41.250
+```
+
+```json
+{
+  "name": "Noi Bai International Airport",
+  "city": "Hanoi",
+  "country": "Vietnam",
+  "iata": "HAN",
+  "icao": "VVNB",
+  "latitude": "21.221200942993164",
+  "longitude": "105.80699920654297",
+  "altitude": "39",
+  "timezone": "7",
+  "dst": "U",
+  "tz_name": "Asia/Saigon"
+}
+```
+
+### Manually specifying the coordinate (Recommended way)
 
 ```bash
 $ curl https://ap.12bay.dev/13.2011066/108.7849624

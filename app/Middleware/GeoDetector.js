@@ -1,4 +1,5 @@
 const got = require('got');
+const isIp = require('is-ip');
 const tryEach = require('async/tryEach');
 const shuffle = require('lodash.shuffle');
 const {compose, split, replace, trim} = require('ramda');
@@ -43,12 +44,12 @@ const geoTransformer = geo => {
 const providers = split('|')(Env.get('APP_DETECT_PROVIDER'));
 
 class GeoDetector {
-  async handle({request}, next) {
-    const {realIp} = request;
+  async handle({request, params}, next) {
+    const currentIp = isIp.v4(params.ip) ? params.ip : request.realIp;
 
-    request.geo = await tryEach(
+    const geo = await tryEach(
       shuffle(providers).map(url => callback => {
-        url = cleanProviderUrl(url, realIp ? realIp : '');
+        url = cleanProviderUrl(url, currentIp ? currentIp : '');
 
         return got(url, {
           responseType: 'json',
@@ -72,6 +73,8 @@ class GeoDetector {
           });
       }),
     );
+
+    request.geo = geo;
 
     await next();
   }

@@ -14,14 +14,12 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', 'AirportController.index').middleware(['geo']);
-Route.get(
-  '/:latitude/:longitude',
-  'AirportController.getAirportByCoordinate',
-).middleware(['geo']);
+Route.get('/:ip?', 'AirportController.index').middleware(['geo']);
 
 Route.get('/debug', ({request, response}) => {
   const {realIp, geo} = request;
 
   response.send({...geo, realIp, ips: request.ips()});
 }).middleware(['geo']);
+
+Route.get('/:latitude/:longitude', 'AirportController.getAirportByCoordinate');
