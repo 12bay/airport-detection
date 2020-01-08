@@ -11,10 +11,7 @@
 |
 */
 
-/** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
-
-Route.get('/:ip?', 'AirportController.index').middleware(['geo']);
 
 Route.get('/debug', ({request, response}) => {
   const {realIp, geo} = request;
@@ -23,3 +20,5 @@ Route.get('/debug', ({request, response}) => {
 }).middleware(['geo']);
 
 Route.get('/:latitude/:longitude', 'AirportController.getAirportByCoordinate');
+
+Route.get('/:ip?', 'AirportController.index').middleware(['geo']);
