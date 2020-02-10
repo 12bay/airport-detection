@@ -32,3 +32,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: 'latest,${{ env.APP_VERSION }}'
           buildargs: APP_VERSION,PORT,APP_KEY,APP_DETECT_PROVIDER
+
+      - name: Refresh Docker badge
+        run: wget --method=POST https://hooks.microbadger.com/images/12bayvn/airport-detection/MO7EB7KauryBHXc_7Axm1p1cFVE= -O /dev/null || exit 0
