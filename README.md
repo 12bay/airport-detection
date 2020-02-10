@@ -1,5 +1,8 @@
 # Airport Detection
 
+[![](https://img.shields.io/docker/pulls/12bayvn/airport-detection?label=12bayvn/airport-detection&style=flat-square)](https://hub.docker.com/r/12bayvn/airport-detection)
+[![](https://images.microbadger.com/badges/version/12bayvn/airport-detection.svg)](https://hub.docker.com/r/12bayvn/airport-detection)
+
 > Just return the current Airport information
 
 ## Development
