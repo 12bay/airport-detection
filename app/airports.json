@@ -21956,18 +21956,18 @@
     "dst": "E",
     "tz_name": "Asia/Damascus"
   },
-  "DOH": {
-    "name": "Hamad International Airport",
+  "DIA": {
+    "name": "Doha International Airport",
     "city": "Doha",
     "country": "Qatar",
-    "iata": "DOH",
-    "icao": "OTHH",
-    "latitude": "25.273056",
-    "longitude": "51.608056",
-    "altitude": "13",
+    "iata": "DIA",
+    "icao": "OTBD",
+    "latitude": "25.261101",
+    "longitude": "51.565102",
+    "altitude": "35",
     "timezone": "3",
-    "dst": "N",
-    "tz_name": null
+    "dst": "U",
+    "tz_name": "Asia/Qatar"
   },
   "CIS": {
     "name": "Canton Island Airport",
@@ -72890,6 +72890,19 @@
     "dst": "O",
     "tz_name": null
   },
+  "DOH": {
+    "name": "Hamad International Airport",
+    "city": "Doha",
+    "country": "Qatar",
+    "iata": "DOH",
+    "icao": "OTHH",
+    "latitude": "25.273056",
+    "longitude": "51.608056",
+    "altitude": "13",
+    "timezone": "3",
+    "dst": "N",
+    "tz_name": "Asia/Qatar"
+  },
   "HZP": {
     "name": "Fort Mackay / Horizon Airport",
     "city": "Wood Buffalo",
@@ -76471,11 +76484,11 @@
     "country": "India",
     "iata": "HYD",
     "icao": "VOHS",
-    "latitude": "17.2403",
-    "longitude": "78.4294",
-    "altitude": null,
-    "timezone": "N",
-    "dst": "5.5",
+    "latitude": "17.2313175201",
+    "longitude": "78.4298553467",
+    "altitude": "2024",
+    "timezone": "5.5",
+    "dst": "N",
     "tz_name": "Asia/Calcutta"
   },
   "PKO": {
@@ -78921,5 +78934,18 @@
     "timezone": null,
     "dst": null,
     "tz_name": null
+  },
+  "BER": {
+    "name": "Berlin Brandenburg Airport",
+    "city": "Berlin",
+    "country": "Germany",
+    "iata": "BER",
+    "icao": "EDDB",
+    "latitude": "52.366667",
+    "longitude": "13.503333",
+    "altitude": "157",
+    "timezone": "1",
+    "dst": "E",
+    "tz_name": "Europe/Berlin"
   }
 }
