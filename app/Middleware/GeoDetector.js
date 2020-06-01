@@ -16,7 +16,7 @@ const cleanProviderUrl = (url, ip) => {
   return url;
 };
 
-const geoTransformer = geo => {
+const geoTransformer = (geo) => {
   const {
     ip,
     query,
@@ -48,14 +48,14 @@ class GeoDetector {
     const currentIp = isIp.v4(params.ip) ? params.ip : request.realIp;
 
     const geo = await tryEach(
-      shuffle(providers).map(url => callback => {
+      shuffle(providers).map((url) => (callback) => {
         url = cleanProviderUrl(url, currentIp ? currentIp : '');
 
         return got(url, {
           responseType: 'json',
           retry: 0,
         })
-          .then(response => {
+          .then((response) => {
             const geo = geoTransformer(response.body);
 
             if (!geo.city) {
@@ -64,7 +64,7 @@ class GeoDetector {
 
             callback(null, geo);
           })
-          .catch(err => {
+          .catch((err) => {
             const error = new Error(err.message);
 
             error.status = err.response ? err.response.statusCode : 500;
